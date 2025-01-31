@@ -47,4 +47,4 @@ Navigate to the root of the project, give execution permissions to the **setup.s
 
 Option 1: You can open the project with GitBash and, from the root of the project, run the **setup.sh** file.
 
-Option 2: Open a terminal located in the **frontend** folder and another in the **backend** folder, and run both projects using npm.
+Option 2: Open a terminal located in the **frontend** folder and another in the **backend** folder, and run both projects using npm: for **backend** run **npm install** first and then **npm run start:dev**. And for **frontend** run **npm install** first and then **npm run dev**.
