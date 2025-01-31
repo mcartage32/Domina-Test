@@ -37,25 +37,3 @@ export interface TaskPartial {
   title?: string;
   description?: string;
 }
-
-// export interface Note {
-//   id: number;
-//   title: string;
-//   content: string;
-//   archived: boolean;
-//   userId: number;
-//   tags: Tag[];
-// }
-
-// export interface CreateNoteInterface {
-//   title: string;
-//   content: string;
-//   archived: boolean;
-//   userId: number;
-//   tags?: Tag[];
-// }
-
-// export interface Tag {
-//   id: number;
-//   name: string;
-// }
