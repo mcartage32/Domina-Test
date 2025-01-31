@@ -1,30 +1,44 @@
-// Interfaz para los tags
-export interface Tag {
-  id: number;
-  name: string;
+export interface RegistrationInterface {
+  username: string;
+  password: string;
 }
 
-// Interfaz para las notas
-export interface Note {
-  id: number;
-  title: string;
-  content: string;
-  archived: boolean;
-  userId: number;
-  tags: Tag[];
+export interface LoginInterface {
+  username: string;
+  password: string;
 }
 
-//Interfaz para crear una nota
-export interface CreateNoteInterface {
-  title: string;
-  content: string;
-  archived: boolean;
-  userId: number;
-  tags?: Tag[];
+export interface UserInterface {
+  id: number;
+  username: string;
+  password: string;
 }
 
-//Interfaz para los tags
-export interface Tag {
-  id: number;
-  name: string;
+export type UserWithoutPassword = Omit<UserInterface, "password">;
+
+export interface LoginResponse {
+  success: boolean;
+  user?: UserWithoutPassword;
 }
+
+// export interface Note {
+//   id: number;
+//   title: string;
+//   content: string;
+//   archived: boolean;
+//   userId: number;
+//   tags: Tag[];
+// }
+
+// export interface CreateNoteInterface {
+//   title: string;
+//   content: string;
+//   archived: boolean;
+//   userId: number;
+//   tags?: Tag[];
+// }
+
+// export interface Tag {
+//   id: number;
+//   name: string;
+// }

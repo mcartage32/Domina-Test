@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import Routes from "./Routes.tsx";
 import { BrowserRouter } from "react-router";
+import { AuthProvider } from "./context/AuthContext.tsx";
 
 const queryClient = new QueryClient();
 
@@ -12,7 +13,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Routes />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
         <ToastContainer />
       </BrowserRouter>
     </QueryClientProvider>

@@ -2,8 +2,11 @@ import { Box, Button, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import UserForm from "./forms/UserForm";
 import { useNavigate } from "react-router-dom";
+import { useCreateUserMutation } from "./api/ApiHooks";
+import { toast } from "react-toastify";
 
 const Registration = () => {
+  const { mutateAsync: createUser } = useCreateUserMutation();
   const navigate = useNavigate();
   return (
     <Box
@@ -30,7 +33,31 @@ const Registration = () => {
         }}
       >
         <Typography variant="h5">Registro</Typography>
-        <Formik initialValues={{}} onSubmit={async (_values: any) => {}}>
+        <Formik
+          initialValues={{
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }}
+          onSubmit={async (values: any) => {
+            if (values?.password !== values?.confirmPassword) {
+              return toast.error("Las contraseñas deben ser iguales");
+            } else {
+              await createUser(
+                { username: values?.email, password: values?.password },
+                {
+                  onSuccess: () => {
+                    toast.success("Se ha registrado el usuario correctamente.");
+                    navigate(-1);
+                  },
+                  onError: (_error) => {
+                    return toast.error("Error al registar el usuario.");
+                  },
+                }
+              );
+            }
+          }}
+        >
           <Form
             style={{
               display: "flex",

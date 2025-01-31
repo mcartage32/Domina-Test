@@ -12,6 +12,10 @@ const Routes = () => {
       path: "/registration",
       element: <Registration />,
     },
+    {
+      path: "/user/:userid/tasks",
+      element: <div>pruebaaa</div>,
+    },
   ]);
 };
 

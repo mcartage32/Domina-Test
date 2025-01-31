@@ -3,6 +3,8 @@ import { UserRepository } from './user.repository';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 
+type UserWithoutPassword = Omit<User, 'password'>;
+
 @Injectable()
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
@@ -15,11 +17,19 @@ export class UserService {
     });
   }
 
-  async login(loginDto: User): Promise<boolean> {
+  async login(
+    loginDto: User,
+  ): Promise<{ success: boolean; user?: UserWithoutPassword }> {
     const user = await this.userRepository.findOneByUsername(loginDto.username);
+
     if (user && (await bcrypt.compare(loginDto.password, user.password))) {
-      return true;
+      const { password, ...userWithoutPassword } = user;
+      return {
+        success: true,
+        user: userWithoutPassword,
+      };
     }
-    return false;
+
+    return { success: false };
   }
 }
