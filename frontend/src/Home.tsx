@@ -23,13 +23,13 @@ import { AuthContext } from "./context/AuthContext";
 function Home() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
-  const { userid } = useParams();
-  // const { mutateAsync: deleteNote } = useDeleteNoteMutation();
+  const { userId } = useParams();
+  // const { mutateAsync: deletetask } = useDeletetaskMutation();
   const {
     data: taskList,
     isLoading: isLoading,
     refetch,
-  } = useTaskListQuery(Number(userid));
+  } = useTaskListQuery(Number(userId));
   const columns = ["Título", "Contenido", "Opciones"];
 
   if (isLoading) return <CircularProgress />;
@@ -59,22 +59,24 @@ function Home() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {taskList?.map((note) => (
+            {taskList?.map((task) => (
               <TableRow
-                key={note?.id}
+                key={task?.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>{note?.title}</TableCell>
-                <TableCell>{note?.description}</TableCell>
+                <TableCell>{task?.title}</TableCell>
+                <TableCell>{task?.description}</TableCell>
                 <TableCell>
-                  <IconButton onClick={() => navigate(`edit/${note?.id}`)}>
+                  <IconButton
+                    onClick={() => navigate(`../../edit/${task?.id}`)}
+                  >
                     <EditIcon />
                   </IconButton>
                   <IconButton
                     color="error"
                     // onClick={() =>
-                    //   deleteNote(
-                    //     { noteId: Number(note?.id) },
+                    //   deletetask(
+                    //     { taskId: Number(task?.id) },
                     //     {
                     //       onSuccess: () => {
                     //         refetch();

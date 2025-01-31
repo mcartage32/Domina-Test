@@ -3,6 +3,7 @@ import Login from "./Login";
 import Registration from "./Registration";
 import Home from "./Home";
 import CreateTask from "./pages/CreateTask";
+import EditTask from "./pages/EditTask";
 
 const Routes = () => {
   return useRoutes([
@@ -15,12 +16,16 @@ const Routes = () => {
       element: <Registration />,
     },
     {
-      path: "/user/:userid/tasks",
+      path: "/user/:userId/tasks",
       element: <Home />,
     },
     {
       path: "create",
       element: <CreateTask />,
+    },
+    {
+      path: "edit/:taskId",
+      element: <EditTask />,
     },
   ]);
 };

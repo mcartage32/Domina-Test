@@ -6,6 +6,7 @@ import {
   LoginResponse,
   RegistrationInterface,
   TaskInterface,
+  TaskPartial,
   UserInterface,
 } from "./Interfaces";
 
@@ -56,6 +57,35 @@ export const useCreateTaskMutation = () => {
     mutationKey: ["TaskCreate"],
     mutationFn: async (sendData: CreateTaskInterface) => {
       const response = await apiTaks.post<TaskInterface>(`tasks`, sendData);
+      return response.data;
+    },
+  });
+};
+
+export const useTaskDetailQuery = (id: Number) => {
+  return useQuery<TaskInterface>({
+    queryKey: ["TaskDetail"],
+    queryFn: async (): Promise<TaskInterface> => {
+      const response = await apiTaks.get<TaskInterface>(`tasks/${id}`);
+      return response.data;
+    },
+  });
+};
+
+export const useUpdateTaskMutation = () => {
+  return useMutation({
+    mutationKey: ["UpdateNote"],
+    mutationFn: async ({
+      sendData,
+      taskId,
+    }: {
+      sendData: TaskPartial;
+      taskId: number;
+    }) => {
+      const response = await apiTaks.put<TaskInterface>(
+        `tasks/${taskId}`,
+        sendData
+      );
       return response.data;
     },
   });

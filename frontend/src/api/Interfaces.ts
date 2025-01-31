@@ -33,6 +33,11 @@ export interface CreateTaskInterface {
   description: string;
 }
 
+export interface TaskPartial {
+  title?: string;
+  description?: string;
+}
+
 // export interface Note {
 //   id: number;
 //   title: string;
