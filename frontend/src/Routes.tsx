@@ -1,4 +1,4 @@
-import { useRoutes, useNavigate } from "react-router-dom";
+import { useRoutes, useNavigate, useLocation } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Login from "./Login";
@@ -10,12 +10,13 @@ import EditTask from "./pages/EditTask";
 const Routes = () => {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (!auth?.userId) {
+    if (!auth?.userId && location.pathname !== "/registration") {
       navigate("/");
     }
-  }, [auth?.userId, navigate]);
+  }, [auth?.userId, navigate, location.pathname]);
 
   return useRoutes([
     {
@@ -31,11 +32,11 @@ const Routes = () => {
       element: auth?.userId ? <Home /> : <Login />,
     },
     {
-      path: "create",
+      path: "/create",
       element: auth?.userId ? <CreateTask /> : <Login />,
     },
     {
-      path: "edit/:taskId",
+      path: "/edit/:taskId",
       element: auth?.userId ? <EditTask /> : <Login />,
     },
   ]);
