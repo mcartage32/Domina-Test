@@ -9,7 +9,7 @@ Before installing this project, you need to install the following dependencies:
 1. **MySQL 9.0.1** or any later version.
 2. **Node.js 22.13.1** or any later version.
 
-**Note:** To run this project, you must ensure that MySQL is running on port 3306, the root user is "root", and the corresponding password is "root". You must also create an empty database with the name "ensolvers_exercise". However, if you want to change the database configuration, remember to modify the file `/backend/app.module.ts` so that the REST API connects correctly with the database.
+**Note:** To run this project, you must ensure that MySQL is running on port 3306, the root user is "root", and the corresponding password is "root". You must also create an empty database with the name "domina_test". However, if you want to change the database configuration, remember to modify the file `/backend/app.module.ts` so that the REST API connects correctly with the database.
 
 ## Dependencies used
 
