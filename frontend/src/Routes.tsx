@@ -1,21 +1,16 @@
 import { useRoutes } from "react-router-dom";
-import App from "./App";
-import CreateNote from "./pages/CreateNote";
-import EditNote from "./pages/EditNote";
+import Login from "./Login";
+import Registration from "./Registration";
 
 const Routes = () => {
   return useRoutes([
     {
       path: "/",
-      element: <App />,
+      element: <Login />,
     },
     {
-      path: "/create",
-      element: <CreateNote />,
-    },
-    {
-      path: "/edit/:noteId",
-      element: <EditNote />,
+      path: "/registration",
+      element: <Registration />,
     },
   ]);
 };
