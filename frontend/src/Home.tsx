@@ -16,7 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useTaskListQuery } from "./api/ApiHooks";
+import { useDeleteTaskMutation, useTaskListQuery } from "./api/ApiHooks";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 
@@ -24,7 +24,7 @@ function Home() {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
   const { userId } = useParams();
-  // const { mutateAsync: deletetask } = useDeletetaskMutation();
+  const { mutateAsync: deleteTask } = useDeleteTaskMutation();
   const {
     data: taskList,
     isLoading: isLoading,
@@ -74,20 +74,20 @@ function Home() {
                   </IconButton>
                   <IconButton
                     color="error"
-                    // onClick={() =>
-                    //   deletetask(
-                    //     { taskId: Number(task?.id) },
-                    //     {
-                    //       onSuccess: () => {
-                    //         refetch();
-                    //         toast.success("Se eliminó la nota correctamente.");
-                    //       },
-                    //       onError: (_error) => {
-                    //         toast.error("Error al eliminar la nota");
-                    //       },
-                    //     }
-                    //   )
-                    // }
+                    onClick={() =>
+                      deleteTask(
+                        { taskId: Number(task?.id) },
+                        {
+                          onSuccess: () => {
+                            refetch();
+                            toast.success("Se eliminó la tarea correctamente.");
+                          },
+                          onError: (_error) => {
+                            toast.error("Error al eliminar la tarea");
+                          },
+                        }
+                      )
+                    }
                   >
                     <DeleteIcon />
                   </IconButton>

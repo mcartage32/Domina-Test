@@ -91,6 +91,16 @@ export const useUpdateTaskMutation = () => {
   });
 };
 
+export const useDeleteTaskMutation = () => {
+  return useMutation({
+    mutationKey: ["DeleteTask"],
+    mutationFn: async ({ taskId }: { taskId: number }) => {
+      const response = await apiTaks.delete(`tasks/${taskId}`);
+      return response.data;
+    },
+  });
+};
+
 // export const useNoteDetailQuery = (id: Number) => {
 //   return useQuery<Note>({
 //     queryKey: ["NoteDetail"],
