@@ -1,6 +1,8 @@
 import { useRoutes } from "react-router-dom";
 import Login from "./Login";
 import Registration from "./Registration";
+import Home from "./Home";
+import CreateTask from "./pages/CreateTask";
 
 const Routes = () => {
   return useRoutes([
@@ -14,7 +16,11 @@ const Routes = () => {
     },
     {
       path: "/user/:userid/tasks",
-      element: <div>pruebaaa</div>,
+      element: <Home />,
+    },
+    {
+      path: "create",
+      element: <CreateTask />,
     },
   ]);
 };

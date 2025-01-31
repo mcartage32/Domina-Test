@@ -21,6 +21,18 @@ export interface LoginResponse {
   user?: UserWithoutPassword;
 }
 
+export interface TaskInterface {
+  id: number;
+  title: string;
+  description: string;
+}
+
+export interface CreateTaskInterface {
+  userId: number;
+  title: string;
+  description: string;
+}
+
 // export interface Note {
 //   id: number;
 //   title: string;

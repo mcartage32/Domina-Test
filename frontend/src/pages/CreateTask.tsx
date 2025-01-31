@@ -1,16 +1,24 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
-import UserForm from "./forms/UserForm";
 import { useNavigate } from "react-router-dom";
-import { useLoginUserMutation } from "./api/ApiHooks";
+import TaskForm from "../forms/TaskForm";
+import { useCreateTaskMutation } from "../api/ApiHooks";
 import { toast } from "react-toastify";
 import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
-const Login = () => {
-  const { mutateAsync: LoginUser } = useLoginUserMutation();
-  const navigate = useNavigate();
+const CreateTask = () => {
   const auth = useContext(AuthContext);
+  const { mutateAsync: createTask } = useCreateTaskMutation();
+  const navigate = useNavigate();
+
+  if (!auth) {
+    return (
+      <Typography variant="h6">
+        No estás autenticado. Por favor, inicia sesión.
+      </Typography>
+    );
+  }
   return (
     <Box
       sx={{
@@ -35,35 +43,29 @@ const Login = () => {
           width: 300,
         }}
       >
-        <Typography variant="h5">Login</Typography>
+        <Typography variant="h5">Crear Tarea</Typography>
         <Formik
           initialValues={{
-            email: "",
-            password: "",
+            title: "",
+            description: "",
           }}
           onSubmit={async (values: any) => {
-            const response = await LoginUser(
+            await createTask(
               {
-                username: values?.email,
-                password: values?.password,
+                description: values?.description,
+                title: values?.title,
+                userId: Number(auth?.userId),
               },
               {
+                onSuccess: () => {
+                  toast.success("Tarea agregada correctamente");
+                  navigate(-1);
+                },
                 onError: (_error) => {
-                  return toast.error("Email o contraseña incorrectos.");
+                  return toast.error("Error al crear la tarea");
                 },
               }
             );
-            if (response?.success) {
-              const data = await response?.user;
-              if (data?.id) {
-                auth?.login(data?.id.toString());
-              } else {
-                toast.error("ID de usuario no encontrado.");
-              }
-              navigate(`user/${data?.id}/tasks`);
-            } else {
-              return toast.error("Email o contraseña incorrectos.");
-            }
           }}
         >
           <Form
@@ -75,16 +77,12 @@ const Login = () => {
               width: "100%",
             }}
           >
-            <UserForm isRegister={false} />
+            <TaskForm />
             <Button type="submit" variant="contained" color="primary" fullWidth>
-              Ingresar
+              Agregar
             </Button>
-            <Button
-              variant="outlined"
-              fullWidth
-              onClick={() => navigate("registration")}
-            >
-              Registrarse
+            <Button variant="outlined" onClick={() => navigate(-1)} fullWidth>
+              Volver
             </Button>
           </Form>
         </Formik>
@@ -93,4 +91,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default CreateTask;

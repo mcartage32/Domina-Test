@@ -1,9 +1,11 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {
+  CreateTaskInterface,
   LoginInterface,
   LoginResponse,
   RegistrationInterface,
+  TaskInterface,
   UserInterface,
 } from "./Interfaces";
 
@@ -37,15 +39,27 @@ export const useLoginUserMutation = () => {
   });
 };
 
-// export const useNoteListQuery = () => {
-//   return useQuery<Note[]>({
-//     queryKey: ["NoteList"],
-//     queryFn: async (): Promise<Note[]> => {
-//       const response = await apiTaks.get<Note[]>(`notes`);
-//       return response.data;
-//     },
-//   });
-// };
+export const useTaskListQuery = (idUser: number) => {
+  return useQuery<TaskInterface[]>({
+    queryKey: ["TaskList"],
+    queryFn: async (): Promise<TaskInterface[]> => {
+      const response = await apiTaks.get<TaskInterface[]>(
+        `tasks/user/${idUser}`
+      );
+      return response.data;
+    },
+  });
+};
+
+export const useCreateTaskMutation = () => {
+  return useMutation({
+    mutationKey: ["TaskCreate"],
+    mutationFn: async (sendData: CreateTaskInterface) => {
+      const response = await apiTaks.post<TaskInterface>(`tasks`, sendData);
+      return response.data;
+    },
+  });
+};
 
 // export const useNoteDetailQuery = (id: Number) => {
 //   return useQuery<Note>({
